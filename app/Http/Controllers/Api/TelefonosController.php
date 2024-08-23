@@ -3,30 +3,31 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Email;
-use App\Models\Contacto;
+use App\Models\Telefono;
 use Illuminate\Http\Request;
+use App\Models\Contacto;
 use Illuminate\Support\Facades\Validator;
 
-class EmailsController extends Controller
+
+class TelefonosController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $email = Email::all();
+        $telefono = Telefono::all();
 
-        if ($email ->isEmpty()) {
+        if($telefono->isEmpty()){
             $data = [
-                'message' => 'No hay email registrados',
+                'message' => 'No hay telefonos Registrados',
                 'status' => 404
             ];
 
             return response()->json($data, 200);
         }
 
-        return response()->json($email, 200);
+        return response()->json($telefono, 200);
     }
 
     /**
@@ -35,7 +36,7 @@ class EmailsController extends Controller
     public function store(Request $request, $contactoId)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|max:255',
+            'numero' => 'required|max:255',
             'tipo' => 'nullable|max:50'
         ]);
 
@@ -56,14 +57,14 @@ class EmailsController extends Controller
             ], 404);
         }
 
-        $email = Email::create([
+        $telefono = Telefono::create([
             'contacto_id' => $contacto->id,
-            'email' => $request->email,
+            'numero' => $request->numero,
             'tipo' => $request->tipo,
         ]);
 
         return response()->json([
-            'email' => $email,
+            'telefono' => $telefono,
             'status' => 201
         ], 201);
     }
@@ -82,34 +83,34 @@ class EmailsController extends Controller
             ], 404);
         }
 
-        $emails = $contacto->emails;
+        $telefonos = $contacto->telefonos;
 
-        if ($emails->isEmpty()) {
+        if ($telefonos->isEmpty()) {
             return response()->json([
-                'message' => 'No hay correos electrónicos registrados para este contacto',
+                'message' => 'No hay teléfonos registrados para este contacto',
                 'status' => 200
             ], 200);
         }
 
-        return response()->json($emails, 200);
+        return response()->json($telefonos, 200);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $contactoId, $emailId)
+    public function update(Request $request, $contactoId, $telefonoId)
     {
-        $email = Email::where('id', $emailId)->where('contacto_id', $contactoId)->first();
+        $telefono = Telefono::where('id', $telefonoId)->where('contacto_id', $contactoId)->first();
 
-        if (!$email) {
+        if (!$telefono) {
             return response()->json([
-                'message' => 'Correo electrónico no encontrado',
+                'message' => 'Teléfono no encontrado',
                 'status' => 404
             ], 404);
         }
 
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email|max:255',
+            'numero' => 'required|max:255',
             'tipo' => 'nullable|max:50'
         ]);
 
@@ -121,11 +122,11 @@ class EmailsController extends Controller
             ], 400);
         }
 
-        $email->update($validator->validated());
+        $telefono->update($validator->validated());
 
         return response()->json([
-            'message' => 'Correo electrónico actualizado correctamente',
-            'email' => $email,
+            'message' => 'Teléfono actualizado correctamente',
+            'telefono' => $telefono,
             'status' => 200
         ], 200);
     }
@@ -133,21 +134,21 @@ class EmailsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($contactoId, $emailId)
+    public function destroy($contactoId, $telefonoId)
     {
-        $email = Email::where('id', $emailId)->where('contacto_id', $contactoId)->first();
+        $telefono = Telefono::where('id', $telefonoId)->where('contacto_id', $contactoId)->first();
 
-        if (!$email) {
+        if (!$telefono) {
             return response()->json([
-                'message' => 'Correo electrónico no encontrado',
+                'message' => 'Teléfono no encontrado',
                 'status' => 404
             ], 404);
         }
 
-        $email->delete();
+        $telefono->delete();
 
         return response()->json([
-            'message' => 'Correo electrónico eliminado correctamente',
+            'message' => 'Teléfono eliminado correctamente',
             'status' => 200
         ], 200);
     }

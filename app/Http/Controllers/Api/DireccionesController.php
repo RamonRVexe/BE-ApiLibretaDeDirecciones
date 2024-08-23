@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Direccion;
 use App\Models\Contacto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DireccionesController extends Controller
 {

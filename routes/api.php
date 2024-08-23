@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ContactosController;
 use App\Http\Controllers\Api\DireccionesController;
 use App\Http\Controllers\Api\EmailsController;
+use App\Http\Controllers\Api\TelefonosController;
 
 # Rutas de la API de contactos
 Route::prefix('contactos')->group(function () {
@@ -36,3 +37,12 @@ Route::prefix('email')->group(function () {
     Route::delete('{contactoId}/deleteEmail/{emailId}', [EmailsController::class, 'destroy']);
 });
 
+# Rutas para la API de telefonos
+
+Route::prefix('telefono')->group(function () {
+    Route::get('getAllTelefonos', [EmailsController::class, 'index']);
+    Route::post('{contactoId}/createTelefono', [EmailsController::class, 'store']);
+    Route::get('{contactoId}/getTelefono}', [EmailsController::class, 'show']);
+    Route::put('{contactoId}/updateTelefono/{emailId}', [EmailsController::class, 'update']);
+    Route::delete('{contactoId}/deleteTelefono/{emailId}', [EmailsController::class, 'destroy']);
+});
