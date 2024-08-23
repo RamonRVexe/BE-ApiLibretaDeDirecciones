@@ -32,7 +32,7 @@ Route::prefix('direcciones/')->group(function () {
 Route::prefix('email/')->group(function () {
     Route::get('getAllEmail', [EmailsController::class, 'index']);
     Route::post('{contactoId}/createEmail', [EmailsController::class, 'store']);
-    Route::get('{contactoId}/getEmail}', [EmailsController::class, 'show']);
+    Route::get('{contactoId}/getEmail', [EmailsController::class, 'show']);
     Route::put('{contactoId}/updateEmail/{emailId}', [EmailsController::class, 'update']);
     Route::delete('{contactoId}/deleteEmail/{emailId}', [EmailsController::class, 'destroy']);
 });
@@ -40,9 +40,9 @@ Route::prefix('email/')->group(function () {
 # Rutas para la API de telefonos
 
 Route::prefix('telefono/')->group(function () {
-    Route::get('getAllTelefonos', [EmailsController::class, 'index']);
-    Route::post('{contactoId}/createTelefono', [EmailsController::class, 'store']);
-    Route::get('{contactoId}/getTelefono', [EmailsController::class, 'show']);
-    Route::put('{contactoId}/updateTelefono/{emailId}', [EmailsController::class, 'update']);
-    Route::delete('{contactoId}/deleteTelefono/{emailId}', [EmailsController::class, 'destroy']);
+    Route::get('getAllTelefonos', [TelefonosController::class, 'index']);
+    Route::post('{contactoId}/createTelefono', [TelefonosController::class, 'store']);
+    Route::get('{contactoId}/getTelefono', [TelefonosController::class, 'show']);
+    Route::put('{contactoId}/updateTelefono/{emailId}', [TelefonosController::class, 'update']);
+    Route::delete('{contactoId}/deleteTelefono/{emailId}', [TelefonosController::class, 'destroy']);
 });

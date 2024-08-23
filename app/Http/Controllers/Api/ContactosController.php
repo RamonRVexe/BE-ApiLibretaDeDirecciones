@@ -105,7 +105,7 @@ class ContactosController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $reques, $id)
+    public function update(Request $request, $id)
     {
 
         $contacto = Contacto::find($id);
@@ -116,13 +116,13 @@ class ContactosController extends Controller
                 'status' => 404
             ];
         }
-        
+
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|max:255',
-            'notas' => 'required|max:255',
-            'fecha_cumpleanos' => 'required|date',
-            'pagina_web' => 'required|max:255',
-            'empresa' => 'required|max:255'
+            'nombre' => 'max:255',
+            'notas' => 'max:255',
+            'fecha_cumpleanos' => 'date',
+            'pagina_web' => 'max:255',
+            'empresa' => 'max:255'
         ]);
 
         if ($validator->fails()) {

@@ -11,6 +11,14 @@ class Contacto extends Model
 
     use HasFactory;
 
+    protected $fillable = [
+        'nombre',
+        'notas',
+        'fecha_cumpleanos',
+        'pagina_web',
+        'empresa',
+    ];
+
     public function telefonos()
     {
         return $this->hasMany(Telefono::class);

@@ -102,7 +102,7 @@ class DireccionesController extends Controller
             ], 200);
         }
 
-        return response()->json($data, 200);
+        return response()->json($direcciones, 200);
     }
 
     /**
@@ -153,7 +153,7 @@ class DireccionesController extends Controller
      */
     public function destroy($contactoId, $direccionId)
     {
-        $direccion = Direccion::where('id', $direccionId)->where('contacto_id',$contactoId)->frist();
+        $direccion = Direccion::where('id', $direccionId)->where('contacto_id',$contactoId)->first();
 
         if (!$direccion) {
             $data = [

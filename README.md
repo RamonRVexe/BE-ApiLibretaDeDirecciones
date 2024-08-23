@@ -1,66 +1,148 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Documentación de la API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Esta documentación proporciona una descripción de las rutas disponibles en la API de gestión de contactos, direcciones, emails y teléfonos. Las rutas están organizadas por el recurso que manejan.
 
-## About Laravel
+## Rutas de la API de Contactos
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Las siguientes rutas están disponibles para gestionar los contactos:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Obtener todos los contactos**
+  - **Método:** `GET`
+  - **Ruta:** `/contactos/getAllContactos`
+  - **Descripción:** Recupera una lista de todos los contactos.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Obtener un contacto específico**
+  - **Método:** `GET`
+  - **Ruta:** `/contactos/getContacto/{id}`
+  - **Descripción:** Recupera los detalles de un contacto específico basado en su ID.
 
-## Learning Laravel
+- **Crear un nuevo contacto**
+  - **Método:** `POST`
+  - **Ruta:** `/contactos/createContacto`
+  - **Descripción:** Crea un nuevo contacto con los datos proporcionados en la solicitud.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- **Actualizar un contacto existente**
+  - **Método:** `PUT`
+  - **Ruta:** `/contactos/updateContacto/{id}`
+  - **Descripción:** Actualiza los detalles de un contacto específico basado en su ID.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- **Eliminar un contacto**
+  - **Método:** `DELETE`
+  - **Ruta:** `/contactos/deleteContacto/{id}`
+  - **Descripción:** Elimina un contacto específico basado en su ID.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Rutas para la API de Direcciones
 
-## Laravel Sponsors
+Las siguientes rutas están disponibles para gestionar las direcciones:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- **Obtener todas las direcciones**
+  - **Método:** `GET`
+  - **Ruta:** `/direcciones/getAllDirecciones`
+  - **Descripción:** Recupera una lista de todas las direcciones.
 
-### Premium Partners
+- **Obtener una dirección específica**
+  - **Método:** `GET`
+  - **Ruta:** `/direcciones/{contactoId}/getDireccion`
+  - **Descripción:** Recupera los detalles de una dirección específica basada en el ID del contacto.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+- **Crear una nueva dirección**
+  - **Método:** `POST`
+  - **Ruta:** `/direcciones/{contactoId}/createDireccion`
+  - **Descripción:** Crea una nueva dirección para un contacto específico.
 
-## Contributing
+- **Actualizar una dirección existente**
+  - **Método:** `PUT`
+  - **Ruta:** `/direcciones/{contactoId}/updateDireccion/{direccionId}`
+  - **Descripción:** Actualiza los detalles de una dirección específica basada en el ID del contacto y el ID de la dirección.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- **Eliminar una dirección**
+  - **Método:** `DELETE`
+  - **Ruta:** `/direcciones/{contactoId}/deleteDireccion/{direccionid}`
+  - **Descripción:** Elimina una dirección específica basada en el ID del contacto y el ID de la dirección.
 
-## Code of Conduct
+## Rutas para la API de Emails
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Las siguientes rutas están disponibles para gestionar los emails:
 
-## Security Vulnerabilities
+- **Obtener todos los emails**
+  - **Método:** `GET`
+  - **Ruta:** `/email/getAllEmail`
+  - **Descripción:** Recupera una lista de todos los emails.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **Crear un nuevo email**
+  - **Método:** `POST`
+  - **Ruta:** `/email/{contactoId}/createEmail`
+  - **Descripción:** Crea un nuevo email para un contacto específico.
 
-## License
+- **Obtener un email específico**
+  - **Método:** `GET`
+  - **Ruta:** `/email/{contactoId}/getEmail`
+  - **Descripción:** Recupera los detalles de un email específico basado en el ID del contacto.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- **Actualizar un email existente**
+  - **Método:** `PUT`
+  - **Ruta:** `/email/{contactoId}/updateEmail/{emailId}`
+  - **Descripción:** Actualiza los detalles de un email específico basado en el ID del contacto y el ID del email.
+
+- **Eliminar un email**
+  - **Método:** `DELETE`
+  - **Ruta:** `/email/{contactoId}/deleteEmail/{emailId}`
+  - **Descripción:** Elimina un email específico basado en el ID del contacto y el ID del email.
+
+## Rutas para la API de Teléfonos
+
+Las siguientes rutas están disponibles para gestionar los teléfonos:
+
+- **Obtener todos los teléfonos**
+  - **Método:** `GET`
+  - **Ruta:** `/telefono/getAllTelefonos`
+  - **Descripción:** Recupera una lista de todos los teléfonos.
+
+- **Crear un nuevo teléfono**
+  - **Método:** `POST`
+  - **Ruta:** `/telefono/{contactoId}/createTelefono`
+  - **Descripción:** Crea un nuevo teléfono para un contacto específico.
+
+- **Obtener un teléfono específico**
+  - **Método:** `GET`
+  - **Ruta:** `/telefono/{contactoId}/getTelefono`
+  - **Descripción:** Recupera los detalles de un teléfono específico basado en el ID del contacto.
+
+- **Actualizar un teléfono existente**
+  - **Método:** `PUT`
+  - **Ruta:** `/telefono/{contactoId}/updateTelefono/{emailId}`
+  - **Descripción:** Actualiza los detalles de un teléfono específico basado en el ID del contacto y el ID del teléfono.
+
+- **Eliminar un teléfono**
+  - **Método:** `DELETE`
+  - **Ruta:** `/telefono/{contactoId}/deleteTelefono/{emailId}`
+  - **Descripción:** Elimina un teléfono específico basado en el ID del contacto y el ID del teléfono.
+
+## Comandos para Ejecutar el Proyecto
+
+### Backend (Laravel)
+
+1. **Instalar dependencias**
+   ```bash
+   composer install
+
+2. **Crear un archivo .env**
+   ```bash
+   cp .env.example .env
+
+3. **Generar la clave de la aplicación**
+   ```bash
+  php artisan key:generate
+
+4. **Migrar la base de datos**
+   ```bash
+  php artisan migrate
+
+5. **Iniciar el servidor de desarrollo**
+   ```bash
+  php artisan serve
+
+6. **Ejecutar todos los seeders**
+   ```bash
+  php artisan db:seed
+
