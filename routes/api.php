@@ -20,10 +20,10 @@ Route::prefix('contactos')->group(function () {
 
 Route::prefix('direcciones')->group(function () {
     Route::get('getAllDirecciones', [DireccionesController::class, 'index']);
-    Route::get('getDireccion/{id}', [DireccionesController::class, 'show']);
-    Route::post('createDireccion', [DireccionesController::class, 'store']);
-    Route::put('updateDireccion/{id}', [DireccionesController::class, 'update']);
-    Route::delete('deleteDireccion/{id}', [DireccionesController::class, 'destroy']);
+    Route::get('{contactoId}/getDireccion', [DireccionesController::class, 'show']);
+    Route::post('{contactoId}/createDireccion', [DireccionesController::class, 'store']);
+    Route::put('{contactoId}/updateDireccion/{direccionId}', [DireccionesController::class, 'update']);
+    Route::delete('{contactoId}/deleteDireccion/{direccionid}', [DireccionesController::class, 'destroy']);
 });
 
 # Rutas para la API de email

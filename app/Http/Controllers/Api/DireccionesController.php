@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Direccion;
+use App\Models\Contacto;
 use Illuminate\Http\Request;
 
 class DireccionesController extends Controller
@@ -29,10 +30,9 @@ class DireccionesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, $contactoId)
     {
         $validator = Validator::make($request->all(), [
-            'contacto_id' => 'required|exists:contactos,id',
             'direccion' => 'required|max:255',
             'ciudad' => 'nullable|max:255',
             'estado' => 'nullable|max:255',
@@ -49,7 +49,23 @@ class DireccionesController extends Controller
             return response()->json($data, 400);
         }
 
-        $direccion = Direccion::create($validator->validated());
+        $contacto = Contacto::find($contactoId);
+
+        if (!$contacto) {
+            return response()->json([
+                'message' => 'Contacto no encontrado',
+                'status' => 404
+            ], 404);
+        }
+
+        $direccion = Direccion::create([
+            'contacto_id' => $contacto->id,
+            'direccion' => $request->direccion,
+            'ciudad' => $request->ciudad,
+            'estado' => $request->estado,
+            'codigo_postal' =>$request->codigo_postal,
+            'pais' => $request->pais
+        ]);
 
         $data = [
             'direccion' => $direccion,
@@ -63,22 +79,27 @@ class DireccionesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($contactoId)
     {
-        $direccion = Direccion::find($id);
 
-        if (!$direccion) {
+        $contacto = Contacto::find($contactoId);
+
+        if (!$contacto) {
             $data = [
-                'message' => 'Direccion no encontrada',
+                'message' => 'Contacto no encontrada',
                 'status' => 404
             ];
             return response()->json($data, 404);
         }
 
-        $data = [
-            'direccion' => $direccion,
-            'status' => 200
-        ];
+        $direcciones = $contacto->direcciones;
+
+       if ($direcciones->isEmpty()) {
+            return response()->json([
+                'message' => 'No hay correos electrónicos registrados para este contacto',
+                'status' => 200
+            ], 200);
+        }
 
         return response()->json($data, 200);
     }
@@ -86,9 +107,9 @@ class DireccionesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Direccion $direccion)
+    public function update(Request $request, $contactoId, $direccionId)
     {
-        $direccion = Direccion::find($id);
+        $direccion = Direccion::where('id', $direccionId)->where('contacto_id', $contactoId)->first();
 
         if (!$direccion) {
             $data = [
@@ -129,9 +150,9 @@ class DireccionesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($contactoId, $direccionId)
     {
-        $direccion = Direccion::find($id);
+        $direccion = Direccion::where('id', $direccionId)->where('contacto_id',$contactoId)->frist();
 
         if (!$direccion) {
             $data = [
